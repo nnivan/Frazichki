@@ -1,6 +1,7 @@
 package com.example.ivan.frazichki;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,8 +10,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 
 public class AddPhreseActivity extends ActionBarActivity {
+
+    public static final String PREFS_NAME = "PhrasesLocation";
+    public static final String PHRASES_COUNT = "PhrasesCount";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +53,17 @@ public class AddPhreseActivity extends ActionBarActivity {
         EditText editText = (EditText) findViewById(R.id.editext1);
         String message = editText.getText().toString();
 
-        //startActivity(intent);
+
+        SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        
+        int length = settings.getInt(PHRASES_COUNT, 0);
+
+        editor.putString("Phrase " + length, message);
+
+        editor.putInt(PHRASES_COUNT, length+1);
+
+        editor.apply();
 
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 
