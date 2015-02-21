@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 
@@ -43,9 +44,12 @@ public class AddPhreseActivity extends ActionBarActivity {
     public void clickedButton1(View v) {
         Intent intent = new Intent(this, AddPhreseActivity.class);
 
+        EditText editText = (EditText) findViewById(R.id.editext1);
+        String message = editText.getText().toString();
+
         //startActivity(intent);
 
-        Toast.makeText(this, "Button1 clicked!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 
     }
 }
