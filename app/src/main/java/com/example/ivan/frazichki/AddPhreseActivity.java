@@ -1,27 +1,24 @@
 package com.example.ivan.frazichki;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class AddPhreseActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_add_phrese);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_add_phrese, menu);
         return true;
     }
 
@@ -38,23 +35,5 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void clickedButton1(View v) {
-        Intent intent = new Intent(this, AddPhreseActivity.class);
-
-        startActivity(intent);
-
-        //Toast.makeText(this, "You can add phrases!", Toast.LENGTH_LONG).show();
-
-    }
-
-    public void clickedButton2(View v) {
-        Intent intent = new Intent(this, ViewPhraseAcrtivity.class);
-
-        startActivity(intent);
-
-        //Toast.makeText(this, "You can see your phrases!", Toast.LENGTH_LONG).show();
-
     }
 }

@@ -5,7 +5,23 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button1_name"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:onClick="clickedButton1"
+        />
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button2_name"
+        android:layout_below="@id/button1"
+        android:layout_centerHorizontal="true"
+        android:onClick="clickedButton2"
+        />
 
 </RelativeLayout>

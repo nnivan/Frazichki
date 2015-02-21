@@ -16,6 +16,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AddFrameAcricity"
+            android:label="@string/title_activity_add_frame_acricity" >
+        </activity>
+        <activity
+            android:name=".AddPhreseActivity"
+            android:label="@string/title_activity_add_phrese" >
+        </activity>
+        <activity
+            android:name=".ViewPhraseAcrtivity"
+            android:label="@string/title_activity_view_phrase_acrtivity" >
+        </activity>
     </application>
 
 </manifest>
