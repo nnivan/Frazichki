@@ -1,9 +1,12 @@
 package com.example.ivan.frazichki;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 
 public class AddPhreseActivity extends ActionBarActivity {
@@ -35,5 +38,14 @@ public class AddPhreseActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void clickedButton1(View v) {
+        Intent intent = new Intent(this, AddPhreseActivity.class);
+
+        //startActivity(intent);
+
+        Toast.makeText(this, "Button1 clicked!", Toast.LENGTH_LONG).show();
+
     }
 }

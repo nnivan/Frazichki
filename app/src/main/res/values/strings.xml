@@ -5,6 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="button1_name">Button1</string>
     <string name="button2_name">Button2</string>
+    <string name="EditText_hint">Enter text</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
     <string name="title_activity_add_frame_acricity">AddFrameAcricity</string>
