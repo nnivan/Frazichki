@@ -47,77 +47,18 @@ public class ViewPhraseAcrtivity extends ActionBarActivity {
 
         final ListView listview = (ListView) findViewById(R.id.listview);
 
+        PhraseModel pm = PhraseModel.getInstance();
+        //final List<Phrase> list = pm.getList();
 
-        final List<Phrase> list = new ArrayList<Phrase>();
-
-        try {
-            InputStream inputStream = openFileInput("phrases.txt");
-            ArrayList<String> bandWidth = new ArrayList<String>();
-
-            if (inputStream != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(
-                        inputStream);
-                BufferedReader bufferedReader = new BufferedReader(
-                        inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ((receiveString = bufferedReader.readLine()) != null) {
-                    //list.add(receiveString);
-                    int indexOfDelimiter = receiveString.indexOf('@');
-                    String phrase = receiveString.substring(0, indexOfDelimiter);
-                    String translation = receiveString.substring(indexOfDelimiter+1, receiveString.length());
-                    list.add(new Phrase(phrase,translation));
-                }
-
-                /*or(String str : bandWidth)
-                    stringBuilder.append(str + "\n");*/
-
-                //PhrasesAll = stringBuilder.toString();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.i("File not found", e.toString());
-        } catch (IOException e) {
-            Log.i("Can not read file:", e.toString());
-        }
-
-
-        /*for (int i = 0; i < values.length; ++i) {
-            list.add(values[i]);
-        }*/
-
-        /*for(int i=0; i < list.size() ;i++){
-            values[i] = list[i];
-        }*/
-
-
-        //final StableArrayAdapter adapter = new StableArrayAdapter(this,android.R.layout.list_item, list);
-        final YourAdapter adapter = new YourAdapter(this, list);
+        final YourAdapter adapter = new YourAdapter(this, pm);
         listview.setAdapter(adapter);
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, final View view,int position, long id) {
-                Log.e("onItemClickek", Integer.toString(list.size()));
-                /*view.animate().setDuration(2000).alpha(0).withEndAction(new Runnable() {
-                    @Override
-                    public void run() {
-                        list.remove(item);
-                        adapter.notifyDataSetChanged();
-                        view.setAlpha(1);
-                    }
-                });*/
-            }
-
-        });
     }
 
     public void clickedButton1(View v) {
         Intent intent = new Intent(this, ViewPhraseAcrtivity.class);
-        File file = new File(this.getFilesDir(), "phrases.txt");
-        file.delete();
+        PhraseModel pm = PhraseModel.getInstance();
+        pm.removeAll();
         this.onResume();
         //startActivity(intent);
     }
@@ -127,30 +68,30 @@ public class ViewPhraseAcrtivity extends ActionBarActivity {
     private class YourAdapter extends BaseAdapter {
 
         Context context;
-        List<Phrase> data;
+        PhraseModel data;
         private LayoutInflater inflater = null;
         boolean b[];
 
-        public YourAdapter(Context context, List<Phrase> data) {
+        public YourAdapter(Context context, PhraseModel data) {
             // TODO Auto-generated constructor stub
             this.context = context;
             this.data = data;
             inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            b = new boolean[data.size()];
+            b = new boolean[data.getList().size()];
             Arrays.fill(b, true);
         }
 
         @Override
         public int getCount() {
             // TODO Auto-generated method stub
-            return data.size();
+            return data.getList().size();
         }
 
         @Override
         public Object getItem(int position) {
             // TODO Auto-generated method stub
-            return data.get(position);
+            return data.getList().get(position);
         }
 
         @Override
@@ -173,25 +114,25 @@ public class ViewPhraseAcrtivity extends ActionBarActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ChangePhraseActivity.class);
-                    intent.putExtra(ChangePhraseActivity.EXTRA_PHRASE,data.get(position).getPhrase());
-                    intent.putExtra(ChangePhraseActivity.EXTRA_TRANSLATION,data.get(position).getTranslation());
+                    intent.putExtra(ChangePhraseActivity.EXTRA_PHRASE,data.getList().get(position).getPhrase());
+                    intent.putExtra(ChangePhraseActivity.EXTRA_TRANSLATION,data.getList().get(position).getTranslation());
                     context.startActivity(intent);
                 }
             });
 
             if(b[position]) {
-                text.setText(data.get(position).getPhrase());
+                text.setText(data.getList().get(position).getPhrase());
             }else{
-                text.setText(data.get(position).getTranslation());
+                text.setText(data.getList().get(position).getTranslation());
             }
             text.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     b[position] = !b[position];
                     if(b[position]) {
-                        ((TextView) v).setText(data.get(position).getPhrase());
+                        ((TextView) v).setText(data.getList().get(position).getPhrase());
                     }else{
-                        ((TextView) v).setText(data.get(position).getTranslation());
+                        ((TextView) v).setText(data.getList().get(position).getTranslation());
                     }
                 }
             });

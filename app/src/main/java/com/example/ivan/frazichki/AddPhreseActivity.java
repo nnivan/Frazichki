@@ -57,40 +57,15 @@ public class AddPhreseActivity extends ActionBarActivity {
     }
 
     public void clickedButton1(View v) {
-        Intent intent = new Intent(this, AddPhreseActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
 
         EditText editText = (EditText) findViewById(R.id.editext1);
         String message = editText.getText().toString();
 
-        File file = new File(this.getFilesDir(), "phrases.txt");
 
-        writeToFile(new Phrase(message,message + "1"));
+        PhraseModel pm = PhraseModel.getInstance();
+        pm.addNewWord(new Phrase(message, message + "1"));
 
-        /*SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        
-        int length = settings.getInt(PHRASES_COUNT, 0);
-
-        editor.putString("Phrase " + length, message);
-
-        editor.putInt(PHRASES_COUNT, length+1);
-
-        editor.apply();
-
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();*/
-
-    }
-    private void writeToFile(Phrase data) {
-        String newline = "\r\n";
-        try {
-
-            OutputStreamWriter oswName = new OutputStreamWriter(openFileOutput(
-                    "phrases.txt", Context.MODE_APPEND));
-            oswName.write(data.getPhrase() + "@" + data.getTranslation());
-            oswName.write(newline);
-            oswName.close();
-        } catch (IOException e) {
-            Log.e("writeToFile", "File write failed: " + e.toString());
-        }
+        startActivity(intent);
     }
 }
