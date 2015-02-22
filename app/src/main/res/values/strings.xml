@@ -11,5 +11,6 @@
     <string name="title_activity_add_frame_acricity">AddFrameAcricity</string>
     <string name="title_activity_add_phrese">AddPhreseActivity</string>
     <string name="title_activity_view_phrase_acrtivity">ViewPhraseAcrtivity</string>
+    <string name="title_activity_change_phrase">ChangePhraseActivity</string>
 
 </resources>

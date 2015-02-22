@@ -64,7 +64,7 @@ public class AddPhreseActivity extends ActionBarActivity {
 
         File file = new File(this.getFilesDir(), "phrases.txt");
 
-        writeToFile(message);
+        writeToFile(new Phrase(message,message + "1"));
 
         /*SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
@@ -80,14 +80,14 @@ public class AddPhreseActivity extends ActionBarActivity {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();*/
 
     }
-    private void writeToFile(String data) {
+    private void writeToFile(Phrase data) {
         String newline = "\r\n";
         try {
 
             OutputStreamWriter oswName = new OutputStreamWriter(openFileOutput(
                     "phrases.txt", Context.MODE_APPEND));
+            oswName.write(data.getPhrase() + "@" + data.getTranslation());
             oswName.write(newline);
-            oswName.write(data);
             oswName.close();
         } catch (IOException e) {
             Log.e("writeToFile", "File write failed: " + e.toString());
