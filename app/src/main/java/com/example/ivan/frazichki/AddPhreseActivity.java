@@ -1,16 +1,25 @@
 package com.example.ivan.frazichki;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class AddPhreseActivity extends ActionBarActivity {
@@ -53,8 +62,11 @@ public class AddPhreseActivity extends ActionBarActivity {
         EditText editText = (EditText) findViewById(R.id.editext1);
         String message = editText.getText().toString();
 
+        File file = new File(this.getFilesDir(), "phrases.txt");
 
-        SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+        writeToFile(message);
+
+        /*SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         
         int length = settings.getInt(PHRASES_COUNT, 0);
@@ -65,7 +77,20 @@ public class AddPhreseActivity extends ActionBarActivity {
 
         editor.apply();
 
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();*/
 
+    }
+    private void writeToFile(String data) {
+        String newline = "\r\n";
+        try {
+
+            OutputStreamWriter oswName = new OutputStreamWriter(openFileOutput(
+                    "phrases.txt", Context.MODE_APPEND));
+            oswName.write(newline);
+            oswName.write(data);
+            oswName.close();
+        } catch (IOException e) {
+            Log.e("writeToFile", "File write failed: " + e.toString());
+        }
     }
 }

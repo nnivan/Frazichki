@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,22 +36,52 @@ public class ViewPhraseAcrtivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_phrase_acrtivity);
 
-        SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
-
         final ListView listview = (ListView) findViewById(R.id.listview);
-        int length = settings.getInt("PhrasesCount", 0);
-        String[] values = new String[length] ;
-
-        Toast.makeText(this, length + "!", Toast.LENGTH_LONG).show();
 
 
         final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < length; ++i) {
-            String phrase = settings.getString("Phrase" + i, "");
-            values[i] = phrase;
-            list.add(phrase);
+
+        try {
+            InputStream inputStream = openFileInput("phrases.txt");
+            ArrayList<String> bandWidth = new ArrayList<String>();
+
+            if (inputStream != null) {
+                InputStreamReader inputStreamReader = new InputStreamReader(
+                        inputStream);
+                BufferedReader bufferedReader = new BufferedReader(
+                        inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ((receiveString = bufferedReader.readLine()) != null) {
+                    //bandWidth.add(receiveString);
+                    list.add(receiveString);
+                    /*if (bandWidth.size() == 10)
+                        bandWidth.remove(0);*/
+                }
+
+                /*or(String str : bandWidth)
+                    stringBuilder.append(str + "\n");*/
+
+                //PhrasesAll = stringBuilder.toString();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.i("File not found", e.toString());
+        } catch (IOException e) {
+            Log.i("Can not read file:", e.toString());
         }
+
+
+        String[] values = list.toArray(new String[list.size()]) ;
+
+        /*for (int i = 0; i < values.length; ++i) {
+            list.add(values[i]);
+        }*/
+
+        /*for(int i=0; i < list.size() ;i++){
+            values[i] = list[i];
+        }*/
 
 
         //final StableArrayAdapter adapter = new StableArrayAdapter(this,android.R.layout.list_item, list);
@@ -72,15 +108,12 @@ public class ViewPhraseAcrtivity extends ActionBarActivity {
 
     public void clickedButton1(View v) {
         Intent intent = new Intent(this, ViewPhraseAcrtivity.class);
-        SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putInt("PhrasesCount", (int) 0);
-        editor.apply();
         startActivity(intent);
 
         //Toast.makeText(this, "You can add phrases!", Toast.LENGTH_LONG).show();
 
     }
+
 
     // FIXME: taka ne se pravi
     private class YourAdapter extends BaseAdapter {
