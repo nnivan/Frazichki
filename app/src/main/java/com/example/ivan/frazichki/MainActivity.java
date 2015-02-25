@@ -1,12 +1,16 @@
 package com.example.ivan.frazichki;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.FileNotFoundException;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -16,6 +20,24 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         PhraseModel pm = PhraseModel.createInstance(this,"phrase.txt");
+
+        //final Context context = this;
+
+
+        //TODO TUK E BUGAVOTO
+
+        TextView text = (TextView) findViewById(R.id.firstLine);
+
+        String[] message = new String[]{"My dog also likes eating sausage"};
+
+        String t = null;
+        try {
+            t = PhraseExtraction.compi(message, this);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        text.setText(t);
     }
 
 

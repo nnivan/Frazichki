@@ -1,5 +1,6 @@
 package com.example.ivan.frazichki;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,6 +27,8 @@ public class AddPhreseActivity extends ActionBarActivity {
 
     public static final String PREFS_NAME = "PhrasesLocation";
     public static final String PHRASES_COUNT = "PhrasesCount";
+
+    final Activity context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,6 @@ public class AddPhreseActivity extends ActionBarActivity {
         PhraseModel pm = PhraseModel.getInstance();
         pm.addNewWord(new Phrase(message, message + "1"));
 
-        startActivity(intent);
+        context.finish();
     }
 }

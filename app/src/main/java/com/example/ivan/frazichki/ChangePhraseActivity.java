@@ -1,5 +1,6 @@
 package com.example.ivan.frazichki;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -21,7 +22,7 @@ public class ChangePhraseActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_phrase);
 
-        final Context context = this;
+        final Activity context = this;
         final PhraseModel pm = PhraseModel.getInstance();
 
         Intent intent = getIntent();
@@ -47,7 +48,7 @@ public class ChangePhraseActivity extends ActionBarActivity {
 
                 pm.editPhrase(new Phrase(phrase,translation), new Phrase(newphrase,newtranslation));
 
-                startActivity(intent);
+                context.finish();
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +58,7 @@ public class ChangePhraseActivity extends ActionBarActivity {
 
                 pm.removePhrase(new Phrase(phrase, translation));
 
-                startActivity(intent);
+                context.finish();
             }
         });
 

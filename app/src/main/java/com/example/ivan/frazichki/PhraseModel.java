@@ -45,9 +45,11 @@ public class PhraseModel {
 
                 while ((receiveString = bufferedReader.readLine()) != null) {
                     int indexOfDelimiter = receiveString.indexOf('@');
-                    String phrase = receiveString.substring(0, indexOfDelimiter);
-                    String translation = receiveString.substring(indexOfDelimiter+1, receiveString.length());
-                    list.add(new Phrase(phrase,translation));
+                    if(indexOfDelimiter != -1) {
+                        String phrase = receiveString.substring(0, indexOfDelimiter);
+                        String translation = receiveString.substring(indexOfDelimiter + 1, receiveString.length());
+                        list.add(new Phrase(phrase, translation));
+                    }
                 }
 
                 inputStream.close();
