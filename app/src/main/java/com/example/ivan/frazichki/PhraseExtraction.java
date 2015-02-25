@@ -123,12 +123,13 @@ public class PhraseExtraction {
         for(int i=0;i<tree.get(x).size();i++){
             int k = tree.get(x).get(i);
 
-            ArrayList<Integer> buff = new ArrayList<Integer>(phraseInt.get(copyOf));
-            buff.add(k);
-
-            phraseInt.add(buff);
-            //phrases.add(phrases.get(copyOf) +" "+ words[k]);
             if(tree.get(x).size()<=tree.get(k).size() && !used[k]){
+
+                ArrayList<Integer> buff = new ArrayList<Integer>(phraseInt.get(copyOf));
+                buff.add(k);
+                phraseInt.add(buff);
+
+                //phrases.add(phrases.get(copyOf) +" "+ words[k]);
                 used[k] = true;
                 recPhrase(k,tree,words,used);
                 used[k] = false;
