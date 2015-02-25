@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -26,18 +27,18 @@ public class MainActivity extends ActionBarActivity {
 
         //TODO TUK E BUGAVOTO
 
-        TextView text = (TextView) findViewById(R.id.firstLine);
+        /*TextView text = (TextView) findViewById(R.id.firstLine);
 
-        String[] message = new String[]{"My dog also likes eating sausage"};
+        String message = new String("My dog also likes eating sausage");
 
-        String t = null;
-        try {
-            t = PhraseExtraction.compi(message, this);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        ArrayList<StringBuilder> t;
+            t = PhraseExtraction.makePhrase(this, message);
+
+        StringBuilder builder = new StringBuilder();
+        for(StringBuilder s : t){
+            builder.append(s + "\n");
         }
-
-        text.setText(t);
+        text.setText(builder.toString());*/
     }
 
 

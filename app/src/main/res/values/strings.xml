@@ -5,12 +5,19 @@
     <string name="hello_world">Hello world!</string>
     <string name="button1_name">Button1</string>
     <string name="button2_name">Button2</string>
+    <string name="button_name_accept">Accept</string>
+    <string name="button_name_delete">Delete</string>
+    <string name="button_name_delete_all">Delete All</string>
+    <string name="button_name_back">Back</string>
+    <string name="button_name_submit">Submit</string>
+    <string name="button_name_add_text">Add Text</string>
+    <string name="button_name_view_text">View Cards</string>
     <string name="EditText_hint">Enter text</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
     <string name="title_activity_add_frame_acricity">AddFrameAcricity</string>
-    <string name="title_activity_add_phrese">AddPhreseActivity</string>
-    <string name="title_activity_view_phrase_acrtivity">ViewPhraseAcrtivity</string>
-    <string name="title_activity_change_phrase">ChangePhraseActivity</string>
+    <string name="title_activity_add_phrese">Add Text</string>
+    <string name="title_activity_view_phrase_acrtivity">View Cards</string>
+    <string name="title_activity_change_phrase">Change Card</string>
 
 </resources>
