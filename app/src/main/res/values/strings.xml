@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Frazichki</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="button1_name">Button1</string>
-    <string name="button2_name">Button2</string>
-    <string name="button_name_accept">Accept</string>
-    <string name="button_name_delete">Delete</string>
-    <string name="button_name_delete_all">Delete All</string>
-    <string name="button_name_back">Back</string>
-    <string name="button_name_submit">Submit</string>
-    <string name="button_name_add_text">Add Text</string>
-    <string name="button_name_view_text">View Cards</string>
-    <string name="EditText_hint">Enter text</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_search">Search</string>
-    <string name="title_activity_add_frame_acricity">AddFrameAcricity</string>
-    <string name="title_activity_add_phrese">Add Text</string>
-    <string name="title_activity_view_phrase_acrtivity">View Cards</string>
-    <string name="title_activity_change_phrase">Change Card</string>
+    <string name="app_name">Фразички</string>
+    <string name="hello_world">Здравей Свят!</string>
+    <string name="button1_name">Бутон1</string>
+    <string name="button2_name">Бутон2</string>
+    <string name="button_name_accept">Ок</string>
+    <string name="button_name_delete">Изтрий</string>
+    <string name="button_name_delete_all">Изтрий всичко</string>
+    <string name="button_name_back">Назад</string>
+    <string name="button_name_submit">Готово</string>
+    <string name="button_name_add_text">Добавяне на текст</string>
+    <string name="button_name_view_text">Разглеждане на картите</string>
+    <string name="EditText_hint">Добави текст</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_search">Търси</string>
+    <string name="title_activity_add_frame_acricity">Добавяне на рамка</string>
+    <string name="title_activity_add_phrese">Добавяне на текст</string>
+    <string name="title_activity_view_phrase_acrtivity">Разглеждане на картите</string>
+    <string name="title_activity_change_phrase">Промяна на карта</string>
 
 </resources>
