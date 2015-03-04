@@ -46,7 +46,6 @@ public class PhraseExtraction {
         pairsCount = Integer.parseInt(buffer.substring(0, spaceIndex));
         wordsCount = Integer.parseInt(buffer.substring(spaceIndex + 1, buffer.length()));
 
-        ///
         String[] words = new String[wordsCount];
 
         HashMap<Integer, ArrayList<Integer>> tree = new HashMap<Integer, ArrayList<Integer>>();
@@ -54,20 +53,11 @@ public class PhraseExtraction {
             tree.put(i, new ArrayList<Integer>());
         }
 
-
-
-        /*ArrayList<Integer>[] tree = new ArrayList[wordsCount];
-        for(int i=0;i<wordsCount;i++){
-            tree[i] = new ArrayList<Integer>();
-        }*/
-
-
         for (int i = 0; i < pairsCount; i++) {
 
             int oldnewLineIndex = newLineIndex+1;
             newLineIndex = input.indexOf("\n", oldnewLineIndex);
             buffer = input.substring(oldnewLineIndex, newLineIndex);
-            //Log.e("PhraseExtraction", buffer);
 
             int end1, end2, end3, end4;
 
@@ -98,7 +88,6 @@ public class PhraseExtraction {
 
         for (int p = 0; p < wordsCount; p++) {
             if (tree.get(p).size() == 1) {
-                ///phrases.add(words[p]);
                 phraseInt.add(new ArrayList<Integer>());
                 phraseInt.get(phraseInt.size()-1).add(p);
                 Log.e("asdfff", words[p]);
@@ -123,7 +112,6 @@ public class PhraseExtraction {
 
     private static void recPhrase(int x, HashMap<Integer, ArrayList<Integer>> tree, String[] words,boolean used[]){
         int copyOf = phraseInt.size()-1;
-        ///int copyOf = phrases.size()-1;
         for(int i=0;i<tree.get(x).size();i++){
             int k = tree.get(x).get(i);
 
@@ -141,8 +129,7 @@ public class PhraseExtraction {
     }
 
 
-    public static String compiler(String args, Context context) /*throws FileNotFoundException */{
-
+    public static String compiler(String args, Context context) {
 
         String retu = "5 6\n" +
                 "dog 2 My 1\n" +
@@ -152,53 +139,6 @@ public class PhraseExtraction {
                 "eating 5 sausage 6\n";
         return retu;
 
-
-/*
-        //FIX
-        //String uri = "android.resource://" + context.getPackageName() + "/raw/english/englishPCFG.ser";
-        //Uri uri = Uri.parse("android.resource://com.example.ivan/raw/englishPCFG.ser");
-        //Uri.parse("android.resource://com.example.ivan/english/englishPCFG.ser");
-        //Uri uri = Uri.parse("android.resource://com.example.ivan/" + R.raw.englishPCFG_ser);
-        //String uri = "android.resource://com.example.ivan/" + R.raw.englishpcfg;
-        String uri = new String();
-        try {
-            uri = context.getAssets().openFd("englishpcfg.gz").getFileDescriptor().toString();
-        }catch (IOException e){
-            Log.e("PhraseExtraction",e.toString());
-        }
-        //Uri path = Uri.parse("file:///android_asset/englishpcfg.gz");
-        //String uri = path.toString();
-        //String grammar = args.length > 0 ? args[0] : uri;
-        String grammar = uri;
-        //String outputFile = args[1];
-        String sent2 = args;
-        Log.e("compiler", grammar);
-        //PrintWriter pw = new PrintWriter(new File(outputFile));
-        StringBuilder ret = new StringBuilder();
-        String[] options = { "-maxLength", "80", "-retainTmpSubcategories" };
-        LexicalizedParser lp = LexicalizedParser.loadModel(grammar, options);
-        TreebankLanguagePack tlp = lp.getOp().langpack();
-        GrammaticalStructureFactory gsf = tlp.grammaticalStructureFactory();
-        // String sent2 =
-        // "This is a slightly longer and more complex sentence requiring tokenization.";
-        Tokenizer<? extends HasWord> toke = tlp.getTokenizerFactory().getTokenizer(new StringReader(sent2));
-        List<? extends HasWord> sentence = toke.tokenize();
-        Tree parse = lp.parse(sentence);
-        GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
-        List<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
-        //pw.println(tdl.size() + " " + sentence.size());
-        ret.append(tdl.size() + " " + sentence.size() + "\r\n");
-        for (TypedDependency dp : tdl) {
-            dp.toString();
-            String govStr = dp.gov().toString().replace('-', ' ');
-            String govDep = dp.dep().toString().replace('-', ' ');
-            //pw.println(govStr + " " + govDep);
-            ret.append((govStr + " " + govDep) + "\r\n");
-        }
-        return ret.toString();
-        //pw.close();
-        // system("java -jar ivan.jar out.txt \"This is my s\".");
-*/
     }
 
 

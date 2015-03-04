@@ -68,7 +68,6 @@ public class PhraseModel {
             oswName.write(phrase.toString());
             oswName.close();
             list.add(phrase);
-            //Log.e(getClass().toString(), phrase.toString());
         } catch (IOException e) {
             Log.e("writeToFile", "File write failed: " + e.toString());
         }

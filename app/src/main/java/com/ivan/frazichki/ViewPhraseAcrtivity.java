@@ -34,7 +34,6 @@ public class ViewPhraseAcrtivity extends ActionBarActivity {
         final ListView listview = (ListView) findViewById(R.id.listview);
 
         PhraseModel pm = PhraseModel.getInstance();
-        //final List<Phrase> list = pm.getList();
 
         final YourAdapter adapter = new YourAdapter(this, pm);
         listview.setAdapter(adapter);
@@ -46,11 +45,9 @@ public class ViewPhraseAcrtivity extends ActionBarActivity {
         PhraseModel pm = PhraseModel.getInstance();
         pm.removeAll();
         this.onResume();
-        //startActivity(intent);
     }
 
 
-    // FIXME: taka ne se pravi
     private class YourAdapter extends BaseAdapter {
 
         Context context;
@@ -59,7 +56,6 @@ public class ViewPhraseAcrtivity extends ActionBarActivity {
         boolean b[];
 
         public YourAdapter(Context context, PhraseModel data) {
-            // TODO Auto-generated constructor stub
             this.context = context;
             this.data = data;
             inflater = (LayoutInflater) context
@@ -70,25 +66,21 @@ public class ViewPhraseAcrtivity extends ActionBarActivity {
 
         @Override
         public int getCount() {
-            // TODO Auto-generated method stub
             return data.getList().size();
         }
 
         @Override
         public Object getItem(int position) {
-            // TODO Auto-generated method stub
             return data.getList().get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            // TODO Auto-generated method stub
             return position;
         }
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
             View vi = convertView;
             if (vi == null) {
                 vi = inflater.inflate(R.layout.list_item, null);
@@ -125,31 +117,5 @@ public class ViewPhraseAcrtivity extends ActionBarActivity {
             return vi;
         }
     }
-
-    /*private class StableArrayAdapter extends ArrayAdapter<String> {
-
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-
-        public StableArrayAdapter(Context context, int textViewResourceId,List<String> objects) {
-            super(context, textViewResourceId, objects);
-            for (int i = 0; i < objects.size(); ++i) {
-                mIdMap.put(objects.get(i), i);
-            }
-        }
-
-        @Override
-        public long getItemId(int position) {
-            String item = getItem(position);
-            return mIdMap.get(item);
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
-
-    }*/
-
-
 
 }

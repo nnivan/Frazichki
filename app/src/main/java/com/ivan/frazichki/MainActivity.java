@@ -19,21 +19,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         PhraseModel pm = PhraseModel.createInstance(this,"phrase.txt");
-
-        //final Context context = this;
-
-
-        //TODO TUK E BUGAVOTO
-
-        /*TextView text = (TextView) findViewById(R.id.firstLine);
-        String message = new String("My dog also likes eating sausage");
-        ArrayList<StringBuilder> t;
-        t = PhraseExtraction.makePhrase(this, message);
-        StringBuilder builder = new StringBuilder();
-        for(StringBuilder s : t){
-            builder.append(s + "\n");
-        }
-        text.setText(builder.toString());*/
     }
 
 
@@ -59,7 +44,6 @@ public class MainActivity extends ActionBarActivity {
 
         startActivity(intent);
 
-        //Toast.makeText(this, "You can add phrases!", Toast.LENGTH_LONG).show();
 
     }
 
@@ -67,8 +51,6 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = new Intent(this, ViewPhraseAcrtivity.class);
 
         startActivity(intent);
-
-        //Toast.makeText(this, "You can see your phrases!", Toast.LENGTH_LONG).show();
 
     }
 }
