@@ -1,11 +1,32 @@
 package com.ivan.frazichki;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 
+import com.ivan.frazichki.R;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Stack;
+
+import edu.stanford.nlp.ling.HasWord;
+import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
+import edu.stanford.nlp.process.Tokenizer;
+import edu.stanford.nlp.trees.GrammaticalStructure;
+import edu.stanford.nlp.trees.GrammaticalStructureFactory;
+import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.trees.TreebankLanguagePack;
+import edu.stanford.nlp.trees.TypedDependency;
 
 public class PhraseExtraction {
 
@@ -60,7 +81,7 @@ public class PhraseExtraction {
 
             aStr = buffer.substring(0, end1);
             aInt = Integer.parseInt(buffer.substring(end1 + 1, end2));
-            bStr = buffer.substring(end2, end3);
+            bStr = buffer.substring(end2+1, end3);
             bInt = Integer.parseInt(buffer.substring(end3 + 1, end4));
             aInt--;
             bInt--;
@@ -76,21 +97,25 @@ public class PhraseExtraction {
         Arrays.fill(used, false);
 
         for (int p = 0; p < wordsCount; p++) {
-            if (tree.get(p).size() < 2) {
-                phraseInt.add(new ArrayList<Integer>(p));
-                //phraseInt.get(phraseInt.size()).add(p);
+            if (tree.get(p).size() == 1) {
                 ///phrases.add(words[p]);
+                phraseInt.add(new ArrayList<Integer>());
+                phraseInt.get(phraseInt.size()-1).add(p);
+                Log.e("asdfff", words[p]);
                 used[p] = true;
                 recPhrase(p,tree,words,used);
                 used[p] = false;
             }
         }
 
+
+
         for(int i=0;i<phraseInt.size();i++){
             Collections.sort(phraseInt.get(i));
             phrases.add(new StringBuilder());
             for(int j : phraseInt.get(i)){
-                phrases.get(i).append(words[j]);
+                Log.e("help", i + " " + j);
+                phrases.get(i).append(words[j] + " ");
             }
         }
 
@@ -108,7 +133,6 @@ public class PhraseExtraction {
                 buff.add(k);
                 phraseInt.add(buff);
 
-                //phrases.add(phrases.get(copyOf) +" "+ words[k]);
                 used[k] = true;
                 recPhrase(k,tree,words,used);
                 used[k] = false;
@@ -130,15 +154,12 @@ public class PhraseExtraction {
 
 
 /*
-
         //FIX
         //String uri = "android.resource://" + context.getPackageName() + "/raw/english/englishPCFG.ser";
-        //Uri uri = Uri.parse("android.resource://com.ivan/raw/englishPCFG.ser");
-        //Uri.parse("android.resource://com.ivan/english/englishPCFG.ser");
-
-        //Uri uri = Uri.parse("android.resource://com.ivan/" + R.raw.englishPCFG_ser);
-
-        //String uri = "android.resource://com.ivan/" + R.raw.englishpcfg;
+        //Uri uri = Uri.parse("android.resource://com.example.ivan/raw/englishPCFG.ser");
+        //Uri.parse("android.resource://com.example.ivan/english/englishPCFG.ser");
+        //Uri uri = Uri.parse("android.resource://com.example.ivan/" + R.raw.englishPCFG_ser);
+        //String uri = "android.resource://com.example.ivan/" + R.raw.englishpcfg;
         String uri = new String();
         try {
             uri = context.getAssets().openFd("englishpcfg.gz").getFileDescriptor().toString();
@@ -146,36 +167,25 @@ public class PhraseExtraction {
             Log.e("PhraseExtraction",e.toString());
         }
         //Uri path = Uri.parse("file:///android_asset/englishpcfg.gz");
-
         //String uri = path.toString();
-
         //String grammar = args.length > 0 ? args[0] : uri;
         String grammar = uri;
         //String outputFile = args[1];
         String sent2 = args;
-
         Log.e("compiler", grammar);
-
-
         //PrintWriter pw = new PrintWriter(new File(outputFile));
         StringBuilder ret = new StringBuilder();
-
         String[] options = { "-maxLength", "80", "-retainTmpSubcategories" };
         LexicalizedParser lp = LexicalizedParser.loadModel(grammar, options);
         TreebankLanguagePack tlp = lp.getOp().langpack();
         GrammaticalStructureFactory gsf = tlp.grammaticalStructureFactory();
-
         // String sent2 =
         // "This is a slightly longer and more complex sentence requiring tokenization.";
-
         Tokenizer<? extends HasWord> toke = tlp.getTokenizerFactory().getTokenizer(new StringReader(sent2));
         List<? extends HasWord> sentence = toke.tokenize();
-
         Tree parse = lp.parse(sentence);
-
         GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
         List<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
-
         //pw.println(tdl.size() + " " + sentence.size());
         ret.append(tdl.size() + " " + sentence.size() + "\r\n");
         for (TypedDependency dp : tdl) {
@@ -185,18 +195,17 @@ public class PhraseExtraction {
             //pw.println(govStr + " " + govDep);
             ret.append((govStr + " " + govDep) + "\r\n");
         }
-
         return ret.toString();
-
         //pw.close();
-
         // system("java -jar ivan.jar out.txt \"This is my s\".");
-
 */
     }
 
 
     public static ArrayList<StringBuilder> makePhrase(Context context, String sentence){
+
+        phrases = new ArrayList<StringBuilder>();
+        phraseInt = new ArrayList<ArrayList<Integer>>(1024);
         buildPhrase(compiler(sentence, context));
 
         return phrases;
