@@ -44,17 +44,8 @@ public class AddPhreseActivity extends ActionBarActivity {
         EditText editText = (EditText) findViewById(R.id.editext1);
         String message = editText.getText().toString();
 
-
-        PhraseModel pm = PhraseModel.getInstance();
-
-        ArrayList<StringBuilder> t;
-        t = PhraseExtraction.makePhrase(this, message);
-
-        for(StringBuilder s : t){
-            pm.addNewWord(new Phrase(s.toString(), s.toString() + "1"));
-        }
-
-        pm.addNewWord(new Phrase(message, message + "1"));
+        AddPhraseFromSentenceTask addPhraseFromSentenceTask = new AddPhraseFromSentenceTask();
+        addPhraseFromSentenceTask.execute(message);
 
         context.finish();
     }
