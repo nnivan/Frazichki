@@ -156,16 +156,17 @@ public class AddPhraseFromSentenceTask extends AsyncTask<String, Void, List<Stri
         int copyOf = phraseInt.size()-1;
         for(int i=0;i<tree.get(x).size();i++){
             int k = tree.get(x).get(i);
-
-            if(tree.get(x).size()<=tree.get(k).size() && !used[k]){
-
+            if(!used[k]) {
                 List<Integer> buff = new ArrayList<>(phraseInt.get(copyOf));
                 buff.add(k);
                 phraseInt.add(buff);
+                if (tree.get(x).size() <= tree.get(k).size()) {
 
-                used[k] = true;
-                recPhrase(k,tree,words,used);
-                used[k] = false;
+
+                    used[k] = true;
+                    recPhrase(k, tree, words, used);
+                    used[k] = false;
+                }
             }
         }
     }
