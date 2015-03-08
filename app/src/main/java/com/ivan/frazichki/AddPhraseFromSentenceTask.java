@@ -1,6 +1,9 @@
 package com.ivan.frazichki;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -12,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -176,7 +180,11 @@ public class AddPhraseFromSentenceTask extends AsyncTask<String, Void, List<Stri
         phraseInt = new ArrayList<>(1024);
 
         String lexicalDAG = getLexicalDAG(sentence);
-        buildPhrase(lexicalDAG);
+        if(!lexicalDAG.equals("")) {
+            buildPhrase(lexicalDAG);
+        }else{
+            
+        }
 
         return phrases;
     }
