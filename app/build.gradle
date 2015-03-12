@@ -23,4 +23,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile files('libs/stanford-parser.jar')
+    compile files('C:/Users/Ivan/Documents/GitHub/Frazichki/libs/google-api-translate-java-0.97.jar')
 }

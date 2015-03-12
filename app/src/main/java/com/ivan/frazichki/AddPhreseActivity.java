@@ -1,6 +1,7 @@
 package com.ivan.frazichki;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ public class AddPhreseActivity extends ActionBarActivity {
 
     public static final String PREFS_NAME = "PhrasesLocation";
     public static final String PHRASES_COUNT = "PhrasesCount";
+
+    private ProgressDialog pd;
 
     final Activity context = this;
 
@@ -45,9 +48,17 @@ public class AddPhreseActivity extends ActionBarActivity {
         EditText editText = (EditText) findViewById(R.id.editext1);
         String message = editText.getText().toString();
 
-        AddPhraseFromSentenceTask addPhraseFromSentenceTask = new AddPhraseFromSentenceTask();
+
+        AddPhraseFromSentenceTask addPhraseFromSentenceTask = new AddPhraseFromSentenceTask(this);
         addPhraseFromSentenceTask.execute(message);
 
+        pd = ProgressDialog.show(AddPhreseActivity.this, "","Loading. Please wait...", true);
+
+        //context.finish();
+    }
+
+    public void endContext(){
+        pd.dismiss();
         context.finish();
     }
 }

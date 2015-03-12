@@ -1,7 +1,11 @@
 package com.ivan.frazichki;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Looper;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,31 +27,57 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AddPhraseFromSentenceTask extends AsyncTask<String, Void, List<StringBuilder>> {
+public class AddPhraseFromSentenceTask extends AsyncTask<String, Void, List<Phrase>> {
 
     private List<StringBuilder> phrases = new ArrayList<>();
 
     private List<List<Integer>> phraseInt = new ArrayList<>(1024);
 
-    protected List<StringBuilder> doInBackground(String... params) {
+    private AddPhreseActivity context;
+
+    public AddPhraseFromSentenceTask(AddPhreseActivity context) {
+        this.context = context;
+    }
+
+    protected List<Phrase> doInBackground(String... params) {
         List<StringBuilder> phrases = new ArrayList<>();
+        List<Phrase> phraseList = new ArrayList<>();
 
         for(String sent : params) {
             List<StringBuilder> currPhrases = makePhrase(sent);
             phrases.addAll(currPhrases);
         }
 
-        return phrases;
+        for(StringBuilder s : phrases){
+                phraseList.add(translatedPhrase(s.toString()));
+        }
+        return phraseList;
     }
 
-    protected void onPostExecute(List<StringBuilder> phrases) {
+    protected Phrase translatedPhrase(String s){
+        s.replace(" ","+");
+        String dag = httpGet("https://www.googleapis.com/language/translate/v2?key=AIzaSyAjYZDC6pp7fUw9CQXsRZ7fRDfzgfxpwQw&source=en&target=bg&q=" + s);
+
+        int startInd = dag.indexOf(" \"translatedText\": ") + " \"translatedText\": ".length();
+        int endInd = dag.indexOf("\"",startInd+1);
+
+        dag = dag.substring(startInd+1,endInd);
+        Log.e("translatedPhrase", dag);
+
+        return  new Phrase(s,dag);
+    }
+
+    protected void onPostExecute(List<Phrase> phrases) {
 
         PhraseModel pm = PhraseModel.getInstance();
 
-        for(StringBuilder s : phrases){
-            pm.addNewWord(new Phrase(s.toString(), s.toString() + "1"));
+
+        for(Phrase s : phrases){
+
+            pm.addNewWord(s);
         }
 
+        context.endContext();
     }
 
     public String getLexicalDAG(String sentence) {
@@ -182,8 +212,6 @@ public class AddPhraseFromSentenceTask extends AsyncTask<String, Void, List<Stri
         String lexicalDAG = getLexicalDAG(sentence);
         if(!lexicalDAG.equals("")) {
             buildPhrase(lexicalDAG);
-        }else{
-            
         }
 
         return phrases;
