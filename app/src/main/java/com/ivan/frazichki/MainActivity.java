@@ -19,21 +19,11 @@ import com.google.api.translate.Translate;
 
 public class MainActivity extends ActionBarActivity {
 
-    //private ProgressBar spinner;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         PhraseModel pm = PhraseModel.createInstance(this,"phrase.txt");
-
-
-
-        /*spinner = (ProgressBar)findViewById(R.id.progressBar1);
-
-        //spinner.setVisibility(View.GONE);
-        spinner.setVisibility(View.VISIBLE);*/
-
     }
 
 

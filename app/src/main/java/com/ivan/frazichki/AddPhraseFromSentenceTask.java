@@ -55,14 +55,19 @@ public class AddPhraseFromSentenceTask extends AsyncTask<String, Void, List<Phra
     }
 
     protected Phrase translatedPhrase(String s){
-        s.replace(" ","+");
-        String dag = httpGet("https://www.googleapis.com/language/translate/v2?key=AIzaSyAjYZDC6pp7fUw9CQXsRZ7fRDfzgfxpwQw&source=en&target=bg&q=" + s);
 
-        int startInd = dag.indexOf(" \"translatedText\": ") + " \"translatedText\": ".length();
-        int endInd = dag.indexOf("\"",startInd+1);
+        String dag = "";
+        s.replace(" ", "%20");
 
-        dag = dag.substring(startInd+1,endInd);
-        Log.e("translatedPhrase", dag);
+        try {
+            dag = httpGet("https://www.googleapis.com/language/translate/v2?key=AIzaSyAjYZDC6pp7fUw9CQXsRZ7fRDfzgfxpwQw&source=en&target=bg&q=" + s);
+            int startInd = dag.indexOf(" \"translatedText\": ") + " \"translatedText\": ".length();
+            int endInd = dag.indexOf("\"",startInd+1);
+
+            dag = dag.substring(startInd+1,endInd);
+        } catch (Exception e){
+            Log.e("AddPhraseFromSentenceTask","translatedPhrase",e);
+        }
 
         return  new Phrase(s,dag);
     }
@@ -77,7 +82,7 @@ public class AddPhraseFromSentenceTask extends AsyncTask<String, Void, List<Phra
             pm.addNewWord(s);
         }
 
-        context.endContext();
+        context.endContext(null);
     }
 
     public String getLexicalDAG(String sentence) {
@@ -97,7 +102,7 @@ public class AddPhraseFromSentenceTask extends AsyncTask<String, Void, List<Phra
             httpResponse = httpclient.execute(new HttpGet(url));
             //Thread.sleep(1000);
             result = EntityUtils.toString(httpResponse.getEntity());
-        } catch (IOException e) {
+        } catch (Exception e) {
             return result;
         }
         return result;
@@ -212,6 +217,8 @@ public class AddPhraseFromSentenceTask extends AsyncTask<String, Void, List<Phra
         String lexicalDAG = getLexicalDAG(sentence);
         if(!lexicalDAG.equals("")) {
             buildPhrase(lexicalDAG);
+        }else{
+            context.endContext("Грешка!\nМоля проверете връзката си с интернет!");
         }
 
         return phrases;
