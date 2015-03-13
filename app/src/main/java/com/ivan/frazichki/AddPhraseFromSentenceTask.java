@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -56,15 +57,22 @@ public class AddPhraseFromSentenceTask extends AsyncTask<String, Void, List<Phra
 
     protected Phrase translatedPhrase(String s){
 
-        String dag = "";
         s.replace(" ", "%20");
+        String dag = "";
 
         try {
-            dag = httpGet("https://www.googleapis.com/language/translate/v2?key=AIzaSyAjYZDC6pp7fUw9CQXsRZ7fRDfzgfxpwQw&source=en&target=bg&q=" + s);
-            int startInd = dag.indexOf(" \"translatedText\": ") + " \"translatedText\": ".length();
-            int endInd = dag.indexOf("\"",startInd+1);
+            dag = httpGet("https://www.googleapis.com/language/translate/v2?key=AIzaSyAjYZDC6pp7fUw9CQXsRZ7fRDfzgfxpwQw&source=en&target=bg&q=" + URLEncoder.encode(s,"UTF-8"));
 
-            dag = dag.substring(startInd+1,endInd);
+            if(!dag.contains("Error")) {
+
+                if (!dag.equals("")) {
+
+                    int startInd = dag.indexOf(" \"translatedText\": ") + " \"translatedText\": ".length();
+                    int endInd = dag.indexOf("\"", startInd + 1);
+
+                    dag = dag.substring(startInd + 1, endInd);
+                }
+            }
         } catch (Exception e){
             Log.e("AddPhraseFromSentenceTask","translatedPhrase",e);
         }
