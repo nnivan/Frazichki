@@ -226,7 +226,7 @@ public class AddPhraseFromSentenceTask extends AsyncTask<String, Void, List<Phra
         if(!lexicalDAG.equals("")) {
             buildPhrase(lexicalDAG);
         }else{
-            context.endContext("Грешка!\nМоля проверете връзката си с интернет!");
+            context.endContext("Грешка!");
         }
 
         return phrases;
